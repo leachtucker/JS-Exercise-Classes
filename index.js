@@ -157,6 +157,16 @@ class Instructor extends Lambdasian {
     grade(student, subject) {
         return `${student.name} receives a perfect score on ${subject}`;
     }
+
+    // Part of Stretch
+    overallGrade(student) {
+        // Purpose of this function is to randomly add or subtract points to the student's grade. We will only add/subtract up to 25 points.
+        // Generate a random number between -25 and 25; Then, add that to the student's grade.
+        // Generating negatives numbers allows us not to use conditionals when _randomly_ adding or subtracting
+        let randomNum = (Math.floor(Math.random() * 50) + 1) - 25;
+        student.grade += randomNum;
+    }
+
 }
 
 /*
@@ -180,6 +190,8 @@ class Student extends Lambdasian {
         this.previousBackground = attributes.previousBackground;
         this.className = attributes.className;
         this.favSubjects = attributes.favSubjects;
+        // Property for Stretch Goal
+        this.grade = (Math.floor(Math.random() * 100) + 1);
     }
 
     listSubjects() {
@@ -192,6 +204,18 @@ class Student extends Lambdasian {
 
     sprintChallenge(subject) {
         return `${this.name} has begun sprint challenge on ${subject}`;
+    }
+
+    // Part of Stretch Goal
+    graduate() {
+        if (this.grade > 70) {
+            // Student can graduate
+            return `${this.name} you graduated!`;
+        } else {
+            // Return to grading
+            Instructor.prototype.overallGrade(this);
+            return `${this.name} you need to go back to studying before you can graduate :(`;
+        }
     }
 
 }
@@ -233,6 +257,8 @@ class ProjectManager extends Instructor {
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
+
 
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
